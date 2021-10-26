@@ -25,7 +25,8 @@ $ curl http://localhost:5004/tasks -H "Content-Type: application/json" --data '{
 Check the status:
 
 ```sh
-$ curl http://localhost:5004/tasks/<TASK_ID>/
+$ curl http://localhost:5004/tasks/<TASK_ID>
+$ curl http://localhost:5004/tasks/8bb507cb-2b12-4b5f-b006-ef5fe8b8ff29
 ```
 
 
