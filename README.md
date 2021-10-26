@@ -27,3 +27,9 @@ Check the status:
 ```sh
 $ curl http://localhost:5004/tasks/<TASK_ID>/
 ```
+
+
+Todo :
+https://www.distributedpython.com/2018/09/28/celery-task-states/
+
+https://stackoverflow.com/questions/21885814/how-to-iterate-through-a-modules-functions
