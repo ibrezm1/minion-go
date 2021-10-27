@@ -45,5 +45,6 @@ Finally, run flask run and the website should be up on: http://127.0.0.1:5000/<b
 
 Swarm<br/>
 https://docs.docker.com/engine/swarm/stack-deploy/<br/>
-https://labs.play-with-docker.com/
+https://labs.play-with-docker.com/ __
+https://stackoverflow.com/questions/5544629/retrieve-list-of-tasks-in-a-queue-in-celery
 
