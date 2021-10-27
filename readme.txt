@@ -1,1 +1,0 @@
-('Traceback (most recent call last):', '  File "/usr/src/app/project/server/tasks.py", line 38, in fail_bound_task', "    raise ValueError('Some error')", 'ValueError: Some error', '')
