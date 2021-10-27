@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:6-alpine
+
+  web:
+    image: jaleconiq/fsw
+    container_name: web
+    ports:
+      - 5004:5000
+    command: python manage.py run -h 0.0.0.0
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_RUN_PORT=5000
+      - APP_SETTINGS=project.server.config.DevelopmentConfig
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+
+  worker:
+    image: jaleconiq/fsw
+    command: celery worker --app=project.server.tasks.celery --loglevel=info --logfile=project/logs/celery.log
+    environment:
+      - FLASK_DEBUG=1
+      - APP_SETTINGS=project.server.config.DevelopmentConfig
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - web
+      - redis
+
+  beat:
+    image: jaleconiq/fsw
+    command: celery beat --app=project.server.tasks.celery --loglevel=info --logfile=project/logs/beat-celery.log
+    environment:
+      - APP_SETTINGS=project.server.config.DevelopmentConfig
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - web
+      - redis      
+
+    3  docker swarm init
+    4  docker swarm init --advertise-addr 192.168.0.28
+
+   27  docker tag web:latest jaleconiq/fsw:latest
+   28  docker push 
+   29  docker push web:latest
+   30  docker ps
+   31  docker images
+   32  docker push jaleconiq/fsw
+   33  docker push jaleconiq/dockerhub:fsw
+   34  docker push 
+   35  vi docker-compose.yml 
+   36  docker stack deploy --compose-file docker-compose.yml stackdemo
+   37  cat docker-compose.yml 
+   38  vi docker-compose.yml 
+   39  docker stack deploy --compose-file docker-compose.yml stackdemo
+   40  docker stack services stackdemo
+   41  ls
+   42  python3 e2e_test.py 
+   43  docker ps
+   44  history > test.txt
