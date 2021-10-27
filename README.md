@@ -44,5 +44,6 @@ Run celery -A app.celery beat --loglevel=INFO --pidfile='' in yet another termin
 Finally, run flask run and the website should be up on: http://127.0.0.1:5000/<br/>
 
 Swarm<br/>
-https://docs.docker.com/engine/swarm/stack-deploy/
+https://docs.docker.com/engine/swarm/stack-deploy/<br/>
+https://labs.play-with-docker.com/
 
