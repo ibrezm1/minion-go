@@ -1,6 +1,8 @@
 version: '3.8'
 
 services:
+  redis:
+    image: redis:6-alpine
 
   web:
     build: .
@@ -34,7 +36,20 @@ services:
     depends_on:
       - web
       - redis
-      
+
+  beat:
+    build: .
+    command: celery beat --app=project.server.tasks.celery --loglevel=info --logfile=project/logs/beat-celery.log
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - APP_SETTINGS=project.server.config.DevelopmentConfig
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - web
+      - redis      
+
 # if flower is need for celery
 #  dashboard:
 #    build: .
@@ -51,5 +66,4 @@ services:
 #      - redis
 #      - worker
 
-  redis:
-    image: redis:6-alpine
+

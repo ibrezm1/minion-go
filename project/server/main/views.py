@@ -6,6 +6,7 @@ from flask import render_template, Blueprint, jsonify, request
 
 from project.server.tasks import create_bound_task
 from project.server.tasks import fail_bound_task
+from project.server.tasks import create_bound_plugin
 
 from flask import Flask, make_response
 
@@ -29,6 +30,34 @@ def run_task2():
     task_type = content["type"]
     task = create_bound_task.delay(int(task_type))
     return jsonify({"task_id": task.id}), 202
+
+@main_blueprint.route("/tasksp", methods=["POST"])
+def run_taskp():
+    content = request.json
+    task_type = content["type"]
+    task = create_bound_plugin.delay(int(task_type))
+    #task = create_bound_plugin.apply_async(args=(int(task_type)), countdown=2)
+    return jsonify({"task_id": task.id}), 202
+
+# https://stackoverflow.com/questions/11672179/setting-time-limit-on-specific-task-with-celery
+# https://docs.celeryproject.org/en/stable/userguide/tasks.html
+@main_blueprint.route("/taskspa", methods=["POST"])
+def run_taskpa():
+    content = request.json
+    task_type = content["type"]
+    #task = create_bound_plugin.delay(int(task_type))
+    task = create_bound_plugin.apply_async(args=[17],\
+                                    countdown=2,time_limit=15, \
+                                    soft_time_limit=10,
+                                    retry=True, retry_policy={
+                                                    max_retries: 3,
+                                                    interval_start: 0,
+                                                    interval_step: 0.2,
+                                                    interval_max: 0.2,
+                                                }
+                                    )
+    return jsonify({"task_id": task.id}), 202
+
 
 @main_blueprint.route("/tasksf", methods=["POST"])
 def run_task3():
