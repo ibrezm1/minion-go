@@ -13,15 +13,41 @@ from celery.exceptions import Ignore
 from celery import states
 from celery.utils.log import get_task_logger
 from celery.exceptions import SoftTimeLimitExceeded
+from celery.schedules import crontab
+
 import traceback
+
 
 #https://medium.com/@taylorhughes/three-quick-tips-from-two-years-with-celery-c05ff9d7f9eb
 
 LOGGER = get_task_logger(__name__)
 
 celery = Celery(__name__)
-celery.conf.broker_url = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379")
-celery.conf.result_backend = os.environ.get("CELERY_RESULT_BACKEND", "redis://localhost:6379")
+
+celery_beat_schedule = {
+    "time_scheduler": {
+        "task": "number_adding",
+        "schedule": 100.0, # In seconds
+        'args': (16, 16),
+    },
+    # Executes every Monday morning at 7:30 a.m.
+    'add-every-monday-morning': {
+        'task': 'number_adding',
+        'schedule': crontab(hour=7, minute=30, day_of_week=1),
+        'args': (16, 16),
+    },
+}
+
+celery.conf.update(
+    result_backend=os.environ.get("CELERY_RESULT_BACKEND", "redis://localhost:6379"),
+    broker_url=os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379"),
+    timezone="UTC",
+    task_serializer="json",
+    accept_content=["json"],
+    result_serializer="json",
+    beat_schedule=celery_beat_schedule,
+)
+
 
 
 @celery.task(name="create_bound_task",bind=True)
@@ -66,6 +92,12 @@ def create_bound_plugin(self,task_type):
     except SoftTimeLimitExceeded:
         print('Timeout for execution if you want to cleanup')
         pass
+
+@celery.task(name="number_adding",bind=True)
+def number_adding(self,a,b):
+    print('Shedular ran')
+    return a+b
+
 
 def main():
     """main function that runs the application

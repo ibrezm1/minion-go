@@ -36,3 +36,9 @@ https://www.distributedpython.com/2018/09/28/celery-task-states/
 https://stackoverflow.com/questions/21885814/how-to-iterate-through-a-modules-functions
 
 https://github.com/delivey/flask-celery-rabbitmq-code
+
+Running the app
+Run sudo rabbitmq-server
+Run celery -A app.celery worker --loglevel=INFO --pidfile='' in another terminal window.
+Run celery -A app.celery beat --loglevel=INFO --pidfile='' in yet another terminal.
+Finally, run flask run and the website should be up on: http://127.0.0.1:5000/

@@ -50,10 +50,10 @@ def run_taskpa():
                                     countdown=2,time_limit=15, \
                                     soft_time_limit=10,
                                     retry=True, retry_policy={
-                                                    max_retries: 3,
-                                                    interval_start: 0,
-                                                    interval_step: 0.2,
-                                                    interval_max: 0.2,
+                                                    'max_retries': 3,
+                                                    'interval_start': 0,
+                                                    'interval_step': 0.2,
+                                                    'interval_max': 0.2,
                                                 }
                                     )
     return jsonify({"task_id": task.id}), 202
