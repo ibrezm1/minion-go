@@ -3,4 +3,3 @@ __pycache
 .DS_Store
 # ignore all logs
 *.log
-**/*.log
