@@ -32,3 +32,9 @@ print(r.json())
 time.sleep(15)
 r = requests.get(f'http://localhost:5004/tasksb/{task_id}')
 print(r.json())
+
+r = requests.get(f'http://localhost:5556/api/tasks')
+tot = len(r.json())
+print(tot)
+
+assert tot != 0,"No requests were fired"
