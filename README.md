@@ -1,10 +1,9 @@
-# Asynchronous Tasks with Flask and Celery
+# Minion Go - Dynamic Task creation and fulfillment Tracker
 
-Example of how to handle background processes with Flask, Celery, and Docker.
+Built out of frustration to do mundane IT tasks on a recurring basis!! Some times you just want to handover a python file to someone and ask him to run this regularly at XX time of the day to send out the report or perform healthcheck. 
+While other times if an issue or incident comes you should be able to ask someone to run the python file and get it resolved.
 
-## Want to learn how to build this?
-
-Check out the [post](https://testdriven.io/blog/flask-and-celery/).
+These are the two major usecases for this project.
 
 ## Want to use this project?
 
@@ -47,4 +46,8 @@ Swarm<br/>
 https://docs.docker.com/engine/swarm/stack-deploy/<br/>
 https://labs.play-with-docker.com/ __
 https://stackoverflow.com/questions/5544629/retrieve-list-of-tasks-in-a-queue-in-celery
+
+## Want to learn how to build this?
+
+Check out the [post](https://testdriven.io/blog/flask-and-celery/).
 
