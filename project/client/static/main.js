@@ -5,7 +5,7 @@
 })();
 
 function handleClick(type) {
-  fetch('/tasks', {
+  fetch('/tasksb', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
