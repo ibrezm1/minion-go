@@ -17,7 +17,7 @@ function handleClick(type) {
 }
 
 function getStatus(taskID) {
-  fetch(`/tasks/${taskID}`, {
+  fetch(`/tasksb/${taskID}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

@@ -38,3 +38,14 @@ tot = len(r.json())
 print(tot)
 
 assert tot != 0,"No requests were fired"
+
+
+r = requests.post('http://localhost:5004/taskspaf',json={'ucname':'CustomLoad','time':5})
+task_id = r.json()['task_id']
+print(task_id)
+time.sleep(2)
+r = requests.get(f'http://localhost:5004/tasksb/{task_id}')
+print(r.json())
+time.sleep(2)
+r = requests.get(f'http://localhost:5004/tasksb/{task_id}')
+print(r.json())

@@ -27,7 +27,7 @@ celery = Celery(__name__)
 celery_beat_schedule = {
     "time_scheduler": {
         "task": "number_adding",
-        "schedule": 100.0, # In seconds
+        "schedule": 1200.0, # In seconds
         'args': (16, 16),
     },
     # Executes every Monday morning at 7:30 a.m.
@@ -46,6 +46,7 @@ celery.conf.update(
     accept_content=["json"],
     result_serializer="json",
     beat_schedule=celery_beat_schedule,
+    result_extended = True,
 )
 
 
@@ -57,7 +58,7 @@ def create_bound_task(self,task_type):
     n = 30
     for i in range(0, n):
         self.update_state(state='PROGRESS', meta={'done': i, 'total': n})
-        print("Calling bound loop")
+        #print("Calling bound loop")
         time.sleep(1)
     return n
 
@@ -82,13 +83,29 @@ def create_bound_plugin(self,task_type):
     LOGGER.info("stdout: %s" % 'Cat')
     my_plugins = PluginCollection('project.server.plugins')
     # TODO : Create single return check and raise error if needed
-    matching_cls = my_plugins.filter_plugin('loaded')[0]
+    matching_cls = my_plugins.filter_plugin('loadedold')[0]
     try :
         for i in range(0, task_type):
             self.update_state(state='PROGRESS', meta={'done': i, 'total': task_type})
-            print("Calling bound loop")
+            #print("Calling bound loop")
             time.sleep(1)
         return matching_cls.perform_operation(5)
+    except SoftTimeLimitExceeded:
+        print('Timeout for execution if you want to cleanup')
+        pass
+
+@celery.task(name="create_filtered_bound_plugin",bind=True)
+def create_filtered_bound_plugin(self,*args, **kwargs):
+    print("Calling bound plugin")
+    LOGGER.info("stdout: %s" % 'Cat')
+    my_plugins = PluginCollection('project.server.plugins')
+    # TODO : Create single return check and raise error if needed
+    print(f'kwargs : {kwargs}')
+    ucname = kwargs['ucname']
+    matching_cls = my_plugins.filter_plugin(ucname)[0]
+    task_type = int(kwargs['time'])
+    try :
+        return matching_cls.perform_operation2(self,kwargs)
     except SoftTimeLimitExceeded:
         print('Timeout for execution if you want to cleanup')
         pass

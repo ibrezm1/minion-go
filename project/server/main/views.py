@@ -7,6 +7,7 @@ from flask import render_template, Blueprint, jsonify, request
 from project.server.tasks import create_bound_task
 from project.server.tasks import fail_bound_task
 from project.server.tasks import create_bound_plugin
+from project.server.tasks import create_filtered_bound_plugin
 
 from flask import Flask, make_response
 
@@ -58,6 +59,24 @@ def run_taskpa():
                                     )
     return jsonify({"task_id": task.id}), 202
 
+
+@main_blueprint.route("/taskspaf", methods=["POST"])
+def run_taskpaf():
+    content = request.json
+    #task_type = content["ucname"]
+    #task = create_bound_plugin.delay(int(task_type))
+    task = create_filtered_bound_plugin.apply_async(args=[0],\
+                                    kwargs= content,\
+                                    countdown=2,time_limit=15, \
+                                    soft_time_limit=10,
+                                    retry=True, retry_policy={
+                                                    'max_retries': 3,
+                                                    'interval_start': 0,
+                                                    'interval_step': 0.2,
+                                                    'interval_max': 0.2,
+                                                }
+                                    )
+    return jsonify({"task_id": task.id}), 202
 
 @main_blueprint.route("/tasksf", methods=["POST"])
 def run_task3():

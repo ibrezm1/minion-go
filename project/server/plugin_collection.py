@@ -28,6 +28,11 @@ class Plugin(object):
         """
         raise NotImplementedError
 
+    def perform_operation2(self, celery, kwargs):
+        """The method that we expect all plugins to implement. This is the
+        method that our framework will call
+        """
+        raise NotImplementedError
 
 
 
