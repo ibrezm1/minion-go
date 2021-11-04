@@ -29,14 +29,6 @@ $ curl http://localhost:5004/tasks/<TASK_ID>
 $ curl http://localhost:5004/tasks/8bb507cb-2b12-4b5f-b006-ef5fe8b8ff29
 ```
 
-
-Todo :
-https://www.distributedpython.com/2018/09/28/celery-task-states/
-
-https://stackoverflow.com/questions/21885814/how-to-iterate-through-a-modules-functions
-
-https://github.com/delivey/flask-celery-rabbitmq-code
-
 Running the app <br/>
 Run sudo rabbitmq-server<br/>
 Run celery -A app.celery worker --loglevel=INFO --pidfile='' in another terminal window.<br/>
@@ -48,7 +40,28 @@ https://docs.docker.com/engine/swarm/stack-deploy/<br/>
 https://labs.play-with-docker.com/ __
 https://stackoverflow.com/questions/5544629/retrieve-list-of-tasks-in-a-queue-in-celery
 
-## Want to learn how to build this?
+## Need Lookups ?
 
-Check out the [post](https://testdriven.io/blog/flask-and-celery/).
+* [Flask and celery](https://testdriven.io/blog/flask-and-celery/).
+* I keep forgeting [Markup in git](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md)
+* Notes on [Celery states](https://www.distributedpython.com/2018/09/28/celery-task-states/)
 
+## TODO items decreasing priority
+- [x] Implement plugin framework for usecase identification
+- [x] Task states and failures
+- [x] Update versions of flower and celery
+- [ ] Implement variables pickup - from request > loadjson
+- [ ] Store all tasks state changes
+- [ ] Update Readme with setup details see [here](https://awesomeopensource.com/projects/celery)
+- [ ] Add Docker swarm steps in readme
+- [ ] Add requirements.txt for usecases and load in the file
+- [ ] guinicorn or waitress inplace of flask default
+- [ ] remove hacky tone (prints and temp routes etc)
+- [ ] Change the react UI that is useless
+- [ ] Mention the githubs I scanned for code
+
+## Ponder over 
+1. Do we need seconday loadjson at a master level ? 
+2. Do we need better UI in place if useless one
+3. Do we need [rabitmq](https://github.com/delivey/flask-celery-rabbitmq-code)
+4. Do we need Django in place of flask , why ? 
