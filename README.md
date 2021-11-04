@@ -50,8 +50,9 @@ https://stackoverflow.com/questions/5544629/retrieve-list-of-tasks-in-a-queue-in
 - [x] Implement plugin framework for usecase identification
 - [x] Task states and failures
 - [x] Update versions of flower and celery
+- [x] CICD with github actions and docker compose 
 - [ ] Implement variables pickup - from request > loadjson
-- [ ] Store all tasks state changes
+- [ ] Store all tasks state changes, but how?
 - [ ] Update Readme with setup details see [here](https://awesomeopensource.com/projects/celery)
 - [ ] Add Docker swarm steps in readme
 - [ ] Add requirements.txt for usecases and load in the file
@@ -62,6 +63,6 @@ https://stackoverflow.com/questions/5544629/retrieve-list-of-tasks-in-a-queue-in
 
 ## Ponder over 
 1. Do we need seconday loadjson at a master level ? 
-2. Do we need better UI in place if useless one
+2. Do we need better UI [like here](https://github.com/satyasrikar/cubesys-frontend) in place if useless one
 3. Do we need [rabitmq](https://github.com/delivey/flask-celery-rabbitmq-code)
 4. Do we need Django in place of flask , why ? 
