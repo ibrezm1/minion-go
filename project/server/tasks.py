@@ -71,7 +71,7 @@ def fail_bound_task(self,task_type):
         self.update_state(
             state=states.FAILURE,
             meta={
-                'exc_type': type(ex).__name__,
+                'exc_type': type(ex).__name__ ,
                 'exc_message': traceback.format_exc().split('\n'),
                 'custom': '...'
             })
@@ -99,6 +99,7 @@ def create_filtered_bound_plugin(self,*args, **kwargs):
     print("Calling bound plugin")
     LOGGER.info("stdout: %s" % 'Cat')
     my_plugins = PluginCollection('project.server.plugins')
+    #my_plugins.reload_plugins()
     # TODO : Create single return check and raise error if needed
     print(f'kwargs : {kwargs}')
     ucname = kwargs['ucname']
@@ -108,6 +109,7 @@ def create_filtered_bound_plugin(self,*args, **kwargs):
         return matching_cls.perform_operation2(self,kwargs)
     except SoftTimeLimitExceeded:
         print('Timeout for execution if you want to cleanup')
+        matching_cls.soft_timeout(self,kwargs)
         pass
 
 @celery.task(name="number_adding",bind=True)
