@@ -51,6 +51,9 @@ https://stackoverflow.com/questions/5544629/retrieve-list-of-tasks-in-a-queue-in
 - [x] Task states and failures
 - [x] Update versions of flower and celery
 - [x] CICD with github actions and docker compose 
+- [ ] Volumnes for plugins with local
+- [ ] Simplify python file to task upload and trigger
+- [ ] Add capability with teraform and GCP spot for temp setup based on (here)[https://github.com/jadechip/infrastructure-as-code]
 - [ ] Implement variables pickup - from request > loadjson
 - [ ] Store all tasks state changes, but how?
 - [ ] Update Readme with setup details see [here](https://awesomeopensource.com/projects/celery)
